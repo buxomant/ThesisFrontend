@@ -1,22 +1,12 @@
 import * as ko from 'knockout';
-import {Item} from 'scripts/models/item';
-import {ItemRepo} from 'scripts/repositories/item-repo'
+import {NavigationService, Page} from 'scripts/services/navigation-service';
+import 'scripts/components/pages/items-page'
 
 const template = require('scripts/components/pages/root.html');
 
 export class ViewModel {
-
-    public allItems: KnockoutObservableArray<Item> = ko.observableArray();
-
-    public constructor() {
-        this.getAllItems();
-    }
-
-    private getAllItems() {
-        ItemRepo.getItems()
-            .then((items) => this.allItems(items))
-            .catch(() => alert('wtf')); // qq implement error handling
-    }
+    public currentPage = NavigationService.currentPage;
+    public Page = Page;
 }
 
 ko.components.register('root', {

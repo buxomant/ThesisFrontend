@@ -1,0 +1,14 @@
+<div class="item-grid">
+    <div class="item-header">
+        <div class="item-field item-id">ID</div>
+        <div class="item-field">Name</div>
+        <div class="item-field item-url">URL</div>
+    </div>
+    <!-- ko foreach: { data: items, as: 'item' } -->
+        <div class="item-row">
+            <div class="item-field item-id" data-bind="text: item.itemId"></div>
+            <div class="item-field" data-bind="text: item.name"></div>
+            <a class="item-field item-url" data-bind="attr: { href: item.url }">LINK</a>
+        </div>
+    <!-- /ko -->
+</div>
