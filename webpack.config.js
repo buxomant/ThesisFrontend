@@ -2,6 +2,9 @@ var path = require('path');
 var process = require('process');
 var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var environment = process.env.ENV || 'development';
 
 module.exports = {
     mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
@@ -42,7 +45,11 @@ module.exports = {
         }]
     },
     plugins: [
-        new CleanWebpackPlugin(['target'])
+        new CleanWebpackPlugin(['target']),
+        new HtmlWebpackPlugin({template: 'src/app.ejs'}),
+        new webpack.ProvidePlugin({
+            config: path.resolve(__dirname, 'config', environment + '.json')
+        })
     ],
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
