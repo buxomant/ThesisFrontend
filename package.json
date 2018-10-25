@@ -17,6 +17,7 @@
   "dependencies": {
     "jquery": "^3.3.1",
     "knockout": "^3.4.2",
+    "moment": "^2.22.2",
     "q": "^1.5.1"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "@types/q": "^1.5.1",
     "@types/webpack-env": "^1.13.6",
     "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "expose-loader": "^0.7.5",
     "html-loader": "^0.5.5",

@@ -10,6 +10,10 @@ export class ViewModel {
     public constructor(params: Params) {
         this.items = params.items;
     }
+
+    public openUrl(this: Item) {
+        window.open(this.url);
+    }
 }
 
 interface Params {
