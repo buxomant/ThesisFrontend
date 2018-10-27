@@ -1,7 +1,8 @@
 import * as ko from 'knockout';
+import * as _ from 'lodash';
 import {Promise} from 'q';
 import * as networkClient from 'scripts/clients/network-client';
-import {ItemsResponse} from 'scripts/models/items-response';
+import {ItemsResponse} from 'scripts/models/response/items-response';
 import {Item} from 'scripts/models/item';
 
 export class ItemRepo {
@@ -10,8 +11,11 @@ export class ItemRepo {
 
     public static init() {
         ItemRepo.fetchItems()
-            .then((itemsResponse) => ItemRepo.items(itemsResponse.items))
-            .catch(() => alert('wtf')); // qq implement error handling
+            .then((itemsResponse) => {
+                const items: Item[] = _.map(itemsResponse.items, Item.fromResponse);
+                ItemRepo.items(items);
+            })
+            .catch((error) => console.log(error)); // qq implement error handling
     }
 
     public static fetchItems(): Promise<ItemsResponse> {

@@ -1,13 +1,13 @@
 @dark-grey: #333;
 @mid-grey: #555;
-@light-grey: #ccc;
+@mid-light-grey: #888;
+@light-grey: #aaa;
+@lighter-grey: #ddd;
 @off-white: #eee;
 
 .item-grid {
-  font-family: Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
 }
 
 .item-header {
@@ -24,23 +24,42 @@
 }
 
 .item-row:nth-child(odd) {
-  background-color: @off-white;
+  background-color: @lighter-grey;
 }
 
 .item-row {
   display: flex;
   flex-direction: row;
   font-size: 12px;
+  &:hover {
+    background: @mid-grey;
+    cursor: pointer;
+    color: white;
+  }
+  &.selected-item {
+    background: darkorange;
+    cursor: pointer;
+    color: white;
+  }
 }
 
 .item-field {
-  flex: 1;
   padding: 10px;
   align-self: center;
+  border: 1px solid @off-white;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.item-name:hover {
-  cursor: pointer;
-  color: white;
-  background: @mid-grey;
+.item-name {
+  .item-field;
+  flex: 1;
+}
+
+.item-price {
+  .item-field;
+  flex: 0.25;
+  text-align: center;
 }

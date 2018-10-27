@@ -1,0 +1,17 @@
+<div class="item-price-grid">
+    <!-- ko foreach: { data: selectedItemPrices, as: 'itemPrice' } -->
+    <div class="item-price-column">
+        <div class="item-price__bar" data-bind="style: { height: itemPrice.getBarHeight($component.maxPrice()) + 'px' },
+            css: {
+                'high-price': itemPrice.price === $component.maxPrice(),
+                'low-price': itemPrice.price === $component.minPrice()
+            }
+        "></div>
+        <div class="item-price__price" data-bind="text: itemPrice.price"></div>
+        <div class="item-price__time-checked">
+            <span data-bind="text: itemPrice.getDateChecked()"></span>
+            <span data-bind="text: itemPrice.getTimeChecked()"></span>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
