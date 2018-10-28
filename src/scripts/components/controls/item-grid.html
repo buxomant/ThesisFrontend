@@ -1,13 +1,15 @@
 <div class="item-grid">
     <div class="item-header">
         <div class="item-name">Item</div>
-        <div class="item-price">Prices</div>
+        <div class="item-price">URL</div>
+        <div class="item-price">Price</div>
     </div>
     <!-- ko if: items -->
         <!-- ko foreach: { data: items, as: 'item' } -->
             <div class="item-row" data-bind="css: { 'selected-item': item.isSelected($component.selectedItem()) }">
-                <div class="item-name" data-bind="text: item.name, click: $component.openUrl"></div>
-                <div class="item-price" data-bind="click: $component.itemClicked">(X)</div>
+                <div class="item-name" data-bind="text: item.name"></div>
+                <div class="item-price" data-bind="click: $component.openUrl">📃</div>
+                <div class="item-price" data-bind="click: $component.itemClicked">📊</div>
             </div>
         <!-- /ko -->
     <!-- /ko -->

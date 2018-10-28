@@ -8,6 +8,8 @@
 .item-grid {
   display: flex;
   flex-direction: column;
+  height: 600px;
+  overflow-y: scroll;
 }
 
 .item-header {
@@ -41,6 +43,9 @@
     cursor: pointer;
     color: white;
   }
+  .item-price {
+    font-size: 20px;
+  }
 }
 
 .item-field {
@@ -55,11 +60,12 @@
 
 .item-name {
   .item-field;
+  justify-content: end;
   flex: 1;
 }
 
 .item-price {
   .item-field;
-  flex: 0.25;
+  flex: 0.125;
   text-align: center;
 }
