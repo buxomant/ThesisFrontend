@@ -10,6 +10,9 @@ export class ViewModel {
     public items = ItemRepo.items;
 
     public selectedItem: KnockoutObservable<Item> = ko.observable();
+    public showNewItemBox: KnockoutObservable<boolean> = ko.observable(false);
+    public newItemName: KnockoutObservable<string> = ko.observable('');
+    public newItemUrl: KnockoutObservable<string> = ko.observable('');
 
     public openUrl(this: Item) {
         window.open(this.url);
@@ -17,6 +20,24 @@ export class ViewModel {
 
     public itemClicked = (item: Item) => {
         this.toggleSelectedItem(item);
+    };
+
+    public toggleNewItemBox = () => this.showNewItemBox(!this.showNewItemBox());
+
+    public submitNewItemEntry = () => {
+        if (this.newItemName() !== '' && this.newItemUrl() !== '') {
+            const newItem = new Item(null, this.newItemName(), this.newItemUrl());
+            ItemRepo.createItem(newItem).then(() => {
+                ItemRepo.init();
+                this.toggleNewItemBox();
+            });
+        }
+    };
+
+    public cancelNewItemEntry = () => {
+        this.toggleNewItemBox();
+        this.newItemName('');
+        this.newItemUrl('');
     };
 
     private toggleSelectedItem(item: Item) {

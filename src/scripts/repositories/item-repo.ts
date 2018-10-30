@@ -4,6 +4,7 @@ import {Promise} from 'q';
 import * as networkClient from 'scripts/clients/network-client';
 import {ItemsResponse} from 'scripts/models/response/items-response';
 import {Item} from 'scripts/models/item';
+import {ItemResponse} from 'scripts/models/response/item-response';
 
 export class ItemRepo {
 
@@ -21,5 +22,10 @@ export class ItemRepo {
     public static fetchItems(): Promise<ItemsResponse> {
         const endpointPath = `items`;
         return networkClient.makeGetRequest<ItemsResponse>(endpointPath);
+    }
+
+    public static createItem(item: Item): Promise<ItemResponse> {
+        const endpointPath = `item`;
+        return networkClient.makePostRequest<ItemResponse>(endpointPath, item);
     }
 }

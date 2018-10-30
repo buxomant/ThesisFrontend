@@ -1,5 +1,8 @@
-<!-- ko if: selectedItemPrices().length > 0 -->
-    <div class="item-price-grid">
+<div class="item-price-grid">
+    <!-- ko if: selectedItemPrices().length === 0 -->
+        <div class="item-price-grid__placeholder">📊</div>
+    <!-- /ko -->
+    <!-- ko if: selectedItemPrices().length > 0 -->
         <!-- ko foreach: { data: selectedItemPrices, as: 'itemPrice' } -->
         <div class="item-price-row">
             <div class="item-price__time-checked" data-bind="text: itemPrice.getDateTimeChecked()"></div>
@@ -12,5 +15,5 @@
             "></div>
         </div>
         <!-- /ko -->
-    </div>
-<!-- /ko -->
+    <!-- /ko -->
+</div>

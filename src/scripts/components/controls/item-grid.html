@@ -6,11 +6,31 @@
     </div>
     <!-- ko if: items -->
         <!-- ko foreach: { data: items, as: 'item' } -->
-            <div class="item-row" data-bind="css: { 'selected-item': item.isSelected($component.selectedItem()) }">
+            <div class="item-row">
                 <div class="item-name" data-bind="text: item.name"></div>
                 <div class="item-price" data-bind="click: $component.openUrl">📃</div>
-                <div class="item-price" data-bind="click: $component.itemClicked">📊</div>
+                <div class="item-price" data-bind="click: $component.itemClicked, css: { 'selected-item': item.isSelected($component.selectedItem()) }">📊</div>
             </div>
         <!-- /ko -->
     <!-- /ko -->
+    <div class="new-item">
+        <!-- ko ifnot: showNewItemBox -->
+            <div class="new-item__button" data-bind="click: toggleNewItemBox">
+                <span class="new-item__button-icon">➕</span>
+                <span class="new-item__button-text">Add Item</span>
+            </div>
+        <!-- /ko -->
+        <!-- ko if: showNewItemBox -->
+            <div class="new-item__box">
+                <input class="new-item__input" data-bind="textInput: newItemName" placeholder="Name"/>
+                <input class="new-item__input" data-bind="textInput: newItemUrl" placeholder="URL"/>
+            </div>
+            <div class="new-item__save">
+                <div class="new-item__save-icon" data-bind="click: submitNewItemEntry">✔</div>
+            </div>
+            <div class="new-item__cancel">
+                <div class="new-item__cancel-icon" data-bind="click: cancelNewItemEntry">x</div>
+            </div>
+        <!-- /ko -->
+    </div>
 </div>

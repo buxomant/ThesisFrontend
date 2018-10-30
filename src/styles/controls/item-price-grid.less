@@ -5,9 +5,21 @@
   display: flex;
   flex-direction: column;
   height: 600px;
+  width: 600px;
   overflow-y: scroll;
   font-size: 12px;
-  padding: 0 10px;
+  padding: 0 2px;
+}
+
+.item-price-grid__placeholder {
+  font-size: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  opacity: 0.5;
+  border: 20px dashed black;
 }
 
 .item-price-row {
@@ -23,7 +35,7 @@
   flex-direction: row;
   width: 110px;
   padding: 2px 5px;
-  margin: 1px 8px;
+  margin: 1px 8px 1px 0;
   color: white;
   background: #333;
   font-weight: bold;
@@ -41,7 +53,7 @@
 .item-price__bar {
   background: darkorange;
   height: 18px;
-  width: 400px;
+  width: 450px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;

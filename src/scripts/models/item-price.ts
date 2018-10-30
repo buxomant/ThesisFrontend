@@ -9,7 +9,7 @@ export class ItemPrice {
     public price: number;
     public timeChecked: Moment;
 
-    private static readonly PRICE_BAR_HEIGHT_IN_PX = 400;
+    private static readonly PRICE_BAR_HEIGHT_IN_PX = 450;
 
     constructor(itemPriceId: number, itemId: number, price: number, timeChecked: Moment) {
         this.itemPriceId = itemPriceId;
