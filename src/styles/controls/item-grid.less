@@ -6,16 +6,16 @@
 @off-white: #eee;
 
 .item-grid {
-  display: flex;
-  flex-direction: column;
   height: 600px;
-  width: 600px;
   overflow-y: scroll;
   padding: 0 2px;
 }
 
 .item-header {
   display: flex;
+  position: fixed;
+  width: 600px;
+  height: 50px;
   flex-direction: row;
   font-size: 16px;
   font-weight: bold;
@@ -34,7 +34,22 @@
 .item-row {
   display: flex;
   flex-direction: row;
+  width: 600px;
+  height: 50px;
   font-size: 12px;
+  transition: height 0.25s, align-items 0.25s;
+  &.selected-item {
+    background: darkorange;
+    color: white;
+    height: 100px;
+    .item-name, .item-price {
+      align-items: flex-start;
+      height: 78px;
+    }
+  }
+  &:nth-child(2) {
+    margin-top: 52px;
+  }
   &:hover {
     background: @mid-grey;
     cursor: pointer;
@@ -42,16 +57,16 @@
   }
   .item-price {
     font-size: 20px;
-    &.selected-item {
-      background: darkorange;
-      color: white;
-    }
   }
+}
+
+.item-name, .item-price {
+  transition: height 0.25s, align-items 0.25s;
 }
 
 .item-field {
   padding: 10px;
-  align-self: center;
+  align-self: flex-start;
   border: 1px solid @off-white;
   height: 30px;
   display: flex;

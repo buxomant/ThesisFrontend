@@ -6,10 +6,10 @@
     </div>
     <!-- ko if: items -->
         <!-- ko foreach: { data: items, as: 'item' } -->
-            <div class="item-row">
+            <div class="item-row" data-bind="click: $component.itemClicked, css: { 'selected-item': item.isSelected($component.selectedItem()) }">
                 <div class="item-name" data-bind="text: item.name"></div>
                 <div class="item-price" data-bind="click: $component.openUrl">📃</div>
-                <div class="item-price" data-bind="click: $component.itemClicked, css: { 'selected-item': item.isSelected($component.selectedItem()) }">📊</div>
+                <div class="item-price">📊</div>
             </div>
         <!-- /ko -->
     <!-- /ko -->
