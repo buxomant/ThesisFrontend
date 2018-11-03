@@ -1,36 +1,38 @@
+<!-- ko if: showNewItemBox -->
+<div class="item-entry">
+    <div class="item-entry__container">
+        <div class="item-entry__box">
+            <input class="item-entry__input" data-bind="textInput: newItemName" placeholder="Name"/>
+            <input class="item-entry__input" data-bind="textInput: newItemUrl" placeholder="URL"/>
+        </div>
+        <div class="item-entry__buttons">
+            <div class="item-entry__save" data-bind="click: submitItemEntry">Save</div>
+            <div class="item-entry__cancel" data-bind="click: cancelItemEntry">Cancel</div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->
 <div class="item-grid">
     <div class="item-header">
-        <div class="item-name">Item</div>
-        <div class="item-price">URL</div>
+        <div class="item-name">
+            <div>Item</div>
+            <div class="item-entry__button-icon" data-bind="click: toggleItemEntryBox">+</div>
+        </div>
         <div class="item-price">Price</div>
     </div>
     <!-- ko if: items -->
         <!-- ko foreach: { data: items, as: 'item' } -->
             <div class="item-row" data-bind="click: $component.itemClicked, css: { 'selected-item': item.isSelected($component.selectedItem()) }">
-                <div class="item-name" data-bind="text: item.name"></div>
-                <div class="item-price" data-bind="click: $component.openUrl">📃</div>
+                <div class="item-name">
+                    <div data-bind="text: item.name"></div>
+                    <div class="item-commands">
+                        <div class="item-command" data-bind="click: $component.modifyItem">Modify</div>
+                        <div class="item-command" data-bind="click: $component.deleteItem">Delete</div>
+                        <div class="item-command" data-bind="click: $component.openUrl">URL</div>
+                    </div>
+                </div>
                 <div class="item-price">📊</div>
             </div>
         <!-- /ko -->
     <!-- /ko -->
-    <div class="new-item">
-        <!-- ko ifnot: showNewItemBox -->
-            <div class="new-item__button" data-bind="click: toggleNewItemBox">
-                <span class="new-item__button-icon">➕</span>
-                <span class="new-item__button-text">Add Item</span>
-            </div>
-        <!-- /ko -->
-        <!-- ko if: showNewItemBox -->
-            <div class="new-item__box">
-                <input class="new-item__input" data-bind="textInput: newItemName" placeholder="Name"/>
-                <input class="new-item__input" data-bind="textInput: newItemUrl" placeholder="URL"/>
-            </div>
-            <div class="new-item__save">
-                <div class="new-item__save-icon" data-bind="click: submitNewItemEntry">✔</div>
-            </div>
-            <div class="new-item__cancel">
-                <div class="new-item__cancel-icon" data-bind="click: cancelNewItemEntry">x</div>
-            </div>
-        <!-- /ko -->
-    </div>
 </div>

@@ -11,6 +11,7 @@ export class ViewModel {
 
     public selectedItem: KnockoutObservable<Item> = ko.observable();
     public showNewItemBox: KnockoutObservable<boolean> = ko.observable(false);
+    public newItemId: KnockoutObservable<number> = ko.observable();
     public newItemName: KnockoutObservable<string> = ko.observable('');
     public newItemUrl: KnockoutObservable<string> = ko.observable('');
 
@@ -19,35 +20,56 @@ export class ViewModel {
     }
 
     public itemClicked = (item: Item) => {
-        this.toggleSelectedItem(item);
+        this.selectItem(item);
     };
 
-    public toggleNewItemBox = () => this.showNewItemBox(!this.showNewItemBox());
+    public toggleItemEntryBox = () => this.showNewItemBox(!this.showNewItemBox());
 
-    public submitNewItemEntry = () => {
+    public submitItemEntry = () => {
         if (this.newItemName() !== '' && this.newItemUrl() !== '') {
-            const newItem = new Item(null, this.newItemName(), this.newItemUrl());
-            ItemRepo.createItem(newItem).then(() => {
-                ItemRepo.init();
-                this.toggleNewItemBox();
-            });
+            if (!this.newItemId()) {
+                const newItem = new Item(null, this.newItemName(), this.newItemUrl());
+                ItemRepo.createItem(newItem).then(() => {
+                    ItemRepo.init();
+                    this.toggleItemEntryBox();
+                });
+            } else {
+                const modifiedItem = new Item(this.newItemId(), this.newItemName(), this.newItemUrl());
+                ItemRepo.modifyItem(modifiedItem).then(() => {
+                    ItemRepo.init();
+                    this.toggleItemEntryBox();
+                });
+            }
         }
     };
 
-    public cancelNewItemEntry = () => {
-        this.toggleNewItemBox();
+    public cancelItemEntry = () => {
+        this.toggleItemEntryBox();
         this.newItemName('');
         this.newItemUrl('');
     };
 
-    private toggleSelectedItem(item: Item) {
-        if (!this.selectedItem() || this.selectedItem().itemId !== item.itemId) {
-            this.selectedItem(item);
-            ItemPriceRepo.updateSelectedItemPrices(item.itemId);
-        } else {
-            this.selectedItem(null);
-            ItemPriceRepo.discardItemPrices();
+    public deleteItem = () => {
+        if (this.selectedItem()) {
+            ItemRepo.deleteItem(this.selectedItem().itemId).then(() => {
+                this.selectedItem(null);
+                ItemRepo.init();
+            });
         }
+    };
+
+    public modifyItem = () => {
+        if (this.selectedItem()) {
+            this.newItemId(this.selectedItem().itemId);
+            this.newItemName(this.selectedItem().name);
+            this.newItemUrl(this.selectedItem().url);
+            this.toggleItemEntryBox();
+        }
+    };
+
+    private selectItem(item: Item) {
+        this.selectedItem(item);
+        ItemPriceRepo.updateSelectedItemPrices(item.itemId);
     }
 }
 

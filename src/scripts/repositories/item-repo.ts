@@ -13,7 +13,10 @@ export class ItemRepo {
     public static init() {
         ItemRepo.fetchItems()
             .then((itemsResponse) => {
-                const items: Item[] = _.map(itemsResponse.items, Item.fromResponse);
+                const items: Item[] = _.chain(itemsResponse.items)
+                    .map(Item.fromResponse)
+                    .sortBy('itemId')
+                    .value();
                 ItemRepo.items(items);
             })
             .catch((error) => console.log(error)); // qq implement error handling
@@ -27,5 +30,15 @@ export class ItemRepo {
     public static createItem(item: Item): Promise<ItemResponse> {
         const endpointPath = `item`;
         return networkClient.makePostRequest<ItemResponse>(endpointPath, item);
+    }
+
+    public static modifyItem(item: Item): Promise<ItemResponse> {
+        const endpointPath = `item/${item.itemId}`;
+        return networkClient.makePostRequest<ItemResponse>(endpointPath, item);
+    }
+
+    public static deleteItem(itemId: number) {
+        const endpointPath = `item/${itemId}`;
+        return networkClient.makeDeleteRequest(endpointPath);
     }
 }
