@@ -1,1 +1,1 @@
-# ThesisFrontend
+# ThesisFrontend project
