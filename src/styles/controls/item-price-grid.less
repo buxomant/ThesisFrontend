@@ -1,6 +1,12 @@
 @green: #28a745;
 @red: #dc3545;
 
+@keyframes expand {
+  from {
+    width: 60px;
+  }
+}
+
 .item-price-grid {
   display: flex;
   flex-direction: column;
@@ -29,7 +35,6 @@
   align-items: center;
   text-align: center;
   min-height: 20px;
-  transition: all 0.5s;
 }
 
 .item-price__time-checked {
@@ -61,6 +66,7 @@
   flex-direction: column;
   margin: 0 10px;
   border-radius: 0 4px 4px 0;
+  animation: expand 0.4s ease-in-out;
   &.high-price {
     background: @red;
   }

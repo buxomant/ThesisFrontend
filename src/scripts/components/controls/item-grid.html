@@ -7,7 +7,7 @@
         </div>
         <div class="item-entry__buttons">
             <div class="item-entry__save" data-bind="click: submitItemEntry">Save</div>
-            <div class="item-entry__cancel" data-bind="click: cancelItemEntry">Cancel</div>
+            <div class="item-entry__cancel" data-bind="click: clearItemEntry">Cancel</div>
         </div>
     </div>
 </div>
@@ -26,9 +26,9 @@
                 <div class="item-name">
                     <div data-bind="text: item.name"></div>
                     <div class="item-commands">
-                        <div class="item-command" data-bind="click: $component.modifyItem">Modify</div>
-                        <div class="item-command" data-bind="click: $component.deleteItem">Delete</div>
                         <div class="item-command" data-bind="click: $component.openUrl">URL</div>
+                        <div class="item-command" data-bind="click: $component.modifyItem">Modify</div>
+                        <div class="item-command__delete" data-bind="click: $component.deleteItem">Delete</div>
                     </div>
                 </div>
                 <div class="item-price">📊</div>

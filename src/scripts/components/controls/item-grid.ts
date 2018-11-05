@@ -31,20 +31,21 @@ export class ViewModel {
                 const newItem = new Item(null, this.newItemName(), this.newItemUrl());
                 ItemRepo.createItem(newItem).then(() => {
                     ItemRepo.init();
-                    this.toggleItemEntryBox();
+                    this.clearItemEntry();
                 });
             } else {
                 const modifiedItem = new Item(this.newItemId(), this.newItemName(), this.newItemUrl());
                 ItemRepo.modifyItem(modifiedItem).then(() => {
                     ItemRepo.init();
-                    this.toggleItemEntryBox();
+                    this.clearItemEntry();
                 });
             }
         }
     };
 
-    public cancelItemEntry = () => {
+    public clearItemEntry = () => {
         this.toggleItemEntryBox();
+        this.newItemId(null);
         this.newItemName('');
         this.newItemUrl('');
     };

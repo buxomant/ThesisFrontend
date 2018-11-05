@@ -14,7 +14,10 @@ export class ItemPriceRepo {
         ItemPriceRepo.isLoading(true);
         ItemPriceRepo.fetchItemPrices(itemId)
             .then((response: ItemPricesResponse) => {
-                const itemPrices: ItemPrice[] = _.map(response.itemPrices, ItemPrice.fromResponse);
+                const itemPrices: ItemPrice[] = _.chain(response.itemPrices)
+                    .sortBy('timeChecked')
+                    .map(ItemPrice.fromResponse)
+                    .value();
                 ItemPriceRepo.selectedItemPrices(itemPrices);
                 ItemPriceRepo.isLoading(false);
             })
