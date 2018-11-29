@@ -1,6 +1,7 @@
 import * as ko from 'knockout';
 import {NavigationService, Page} from 'scripts/services/navigation-service';
 import 'scripts/components/pages/items-page'
+import 'scripts/components/pages/statistics-page'
 
 const template = require('scripts/components/pages/root.html');
 

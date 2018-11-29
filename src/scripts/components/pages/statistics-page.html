@@ -1,0 +1,33 @@
+<div class="statistics-page">
+    <div class="statistics-header">
+        Web Crawler Statistics
+    </div>
+    <!-- ko if: statistics -->
+        <div class="statistics-item__container">
+            <div class="statistics-item">
+                <div class="statistics-item__header">Number of Websites</div>
+                <div class="statistics-item__value" data-bind="text: statistics().numberOfWebsites"></div>
+            </div>
+            <div class="statistics-item">
+                <div class="statistics-item__header">Number of Checked Websites</div>
+                <div class="statistics-item__value" data-bind="text: statistics().numberOfCheckedWebsites"></div>
+            </div>
+            <div class="statistics-item">
+                <div class="statistics-item__header">Number of Processed Websites</div>
+                <div class="statistics-item__value" data-bind="text: statistics().numberOfProcessedWebsites"></div>
+            </div>
+            <div class="statistics-item">
+                <div class="statistics-item__header">Number of Websites with Errors</div>
+                <div class="statistics-item__value" data-bind="text: statistics().numberOfWebsitesWithErrors"></div>
+            </div>
+            <div class="statistics-item">
+                <div class="statistics-item__header">Number of Links between Websites</div>
+                <div class="statistics-item__value" data-bind="text: statistics().numberOfLinks"></div>
+            </div>
+            <div class="statistics-item">
+                <div class="statistics-item__header">Number of Pages</div>
+                <div class="statistics-item__value" data-bind="text: statistics().numberOfPages"></div>
+            </div>
+        </div>
+    <!-- /ko -->
+</div>

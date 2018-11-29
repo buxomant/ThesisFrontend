@@ -1,0 +1,39 @@
+.statistics-page {
+  .statistics-header {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .statistics-item__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statistics-item {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    padding: 5px;
+    justify-content: space-between;
+    width: 320px;
+    border: 1px solid @light-grey;
+    border-bottom: none;
+    &:last-child {
+      border: 1px solid @light-grey;
+    }
+  }
+
+  .statistics-item__header, .statistics-item__value {
+    height: 100%;
+    width: 100%;
+  }
+
+  .statistics-item__header {
+    flex: 4;
+  }
+
+  .statistics-item__value {
+    flex: 1;
+    text-align: end;
+  }
+}
