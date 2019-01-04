@@ -1,4 +1,4 @@
-export interface StatisticsResponse {
+export interface CrawlerStatisticsResponse {
     numberOfWebsites: number,
     numberOfCheckedWebsites: number,
     numberOfProcessedWebsites: number,

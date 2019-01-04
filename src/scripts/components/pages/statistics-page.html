@@ -1,33 +1,76 @@
 <div class="statistics-page">
-    <div class="statistics-header">
-        Web Crawler Statistics
-    </div>
-    <!-- ko if: statistics -->
-        <div class="statistics-item__container">
-            <div class="statistics-item">
-                <div class="statistics-item__header">Number of Websites</div>
-                <div class="statistics-item__value" data-bind="text: statistics().numberOfWebsites"></div>
-            </div>
-            <div class="statistics-item">
-                <div class="statistics-item__header">Number of Checked Websites</div>
-                <div class="statistics-item__value" data-bind="text: statistics().numberOfCheckedWebsites"></div>
-            </div>
-            <div class="statistics-item">
-                <div class="statistics-item__header">Number of Processed Websites</div>
-                <div class="statistics-item__value" data-bind="text: statistics().numberOfProcessedWebsites"></div>
-            </div>
-            <div class="statistics-item">
-                <div class="statistics-item__header">Number of Websites with Errors</div>
-                <div class="statistics-item__value" data-bind="text: statistics().numberOfWebsitesWithErrors"></div>
-            </div>
-            <div class="statistics-item">
-                <div class="statistics-item__header">Number of Links between Websites</div>
-                <div class="statistics-item__value" data-bind="text: statistics().numberOfLinks"></div>
-            </div>
-            <div class="statistics-item">
-                <div class="statistics-item__header">Number of Pages</div>
-                <div class="statistics-item__value" data-bind="text: statistics().numberOfPages"></div>
-            </div>
+    <div class="statistics-group">
+        <div class="statistics-header">
+            Web Crawler Statistics
         </div>
-    <!-- /ko -->
+        <!-- ko if: crawlerStatistics -->
+            <div class="statistics-item__container">
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Websites</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Checked Websites</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfCheckedWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Processed Websites</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfProcessedWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Websites with Errors</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfWebsitesWithErrors"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Duplicate Websites</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfDuplicateWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Links between Websites</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfLinks"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Pages</div>
+                    <div class="statistics-item__value" data-bind="text: crawlerStatistics().numberOfPages"></div>
+                </div>
+            </div>
+        <!-- /ko -->
+    </div>
+    <div class="statistics-group">
+        <div class="statistics-header">
+            Website Statistics
+        </div>
+        <!-- ko if: websiteStatistics -->
+            <div class="statistics-item__container">
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Domestic Websites</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfDomesticWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Foreign Websites</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfForeignWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Websites redirecting to Foreign Websites</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfRedirectToForeignWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Websites serving as Indexing Services</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfIndexingServiceWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of News Websites</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfNewsWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Social Media Websites</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfSocialMediaWebsites"></div>
+                </div>
+                <div class="statistics-item">
+                    <div class="statistics-item__header">Number of Uncategorized Websites</div>
+                    <div class="statistics-item__value" data-bind="text: websiteStatistics().numberOfUncategorizedWebsites"></div>
+                </div>
+            </div>
+        <!-- /ko -->
+    </div>
 </div>
