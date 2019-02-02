@@ -1,0 +1,10 @@
+<div class="nav-bar">
+    <div class="nav-bar__link" data-bind="
+        click: NavigationService.openStatisticsPage,
+        css: { 'selected': NavigationService.currentPage() === Page.STATISTICS }
+    ">Statistics</div>
+    <div class="nav-bar__link" data-bind="
+        click: NavigationService.openWebsitesPage,
+        css: { 'selected': NavigationService.currentPage() === Page.WEBSITES }
+    ">Websites</div>
+</div>

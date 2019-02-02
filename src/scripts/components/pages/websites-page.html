@@ -1,0 +1,36 @@
+<div class="websites-page">
+    <div class="website-grid">
+        <div class="website-header">
+            <div class="website-header__url">URL</div>
+            <div class="website-header__type">Type</div>
+            <div class="website-header__content-type">Content Type</div>
+            <div class="website-header__frequency">Frequency (hours)</div>
+        </div>
+        <!-- ko if: websites -->
+            <!-- ko foreach: { data: websitesToDisplay, as: 'website' } -->
+                <div class="website-entry">
+                    <div class="website-entry__url" data-bind="text: website.url"></div>
+                    <div class="website-entry__type" data-bind="text: website.type"></div>
+                    <div class="website-entry__content-type" data-bind="text: website.contentType"></div>
+                    <div class="website-entry__frequency" data-bind="text: website.fetchEveryNumberOfHours"></div>
+                </div>
+            <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div class="website-grid__pagination">
+        <div class="website-grid__page-select">
+            <span>Page </span>
+            <input class="pagination-input" type="number" min="1" data-bind="textInput: websiteGridPage"/>
+            <span> of </span>
+            <b><span data-bind="text: websiteGridNoOfPages"></span></b>
+        </div>
+        <div class="website-grid__total-entries">
+            <span>Total </span>
+            <b><span data-bind="text: websites().length"></span></b>
+        </div>
+        <div class="website-grid__entries-per-page">
+            <span>Entries per page </span>
+            <input class="pagination-input" type="number" min="1" data-bind="textInput: websiteGridEntriesPerPage"/>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+.nav-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-bar__link {
+  padding: 5px;
+  border: 1px solid @light-grey;
+  border-right: none;
+  cursor: pointer;
+  &:last-child {
+    border: 1px solid @light-grey;
+  }
+  &.selected {
+    background: black;
+    color: white;
+  }
+}

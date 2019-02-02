@@ -3,7 +3,6 @@ import * as Q from 'q';
 
 import Promise = Q.Promise;
 import {ConfigService} from 'scripts/services/config-service';
-// import {ErrorType} from 'scripts/models/error-type';
 
 export const CONTENT_TYPE_JSON = 'application/json';
 
@@ -68,15 +67,6 @@ export interface NetworkError {
     statusCode: string;
     response: any;
 }
-
-// export function getErrorTypeForErrorResponse(errorResponse: NetworkError): ErrorType {
-//     if (!errorResponse.response || !errorResponse.response.code) {
-//         return ErrorType.GENERAL_ERROR;
-//     }
-//     return  _.includes(ErrorType.values(), errorResponse.response.code)
-//         ? errorResponse.response.code
-//         : ErrorType.GENERAL_ERROR;
-// }
 
 enum HttpMethod {
     GET,

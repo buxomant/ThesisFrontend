@@ -1,8 +1,12 @@
 <div class="root">
+    <nav-bar></nav-bar>
     <!-- ko if: currentPage() === Page.ITEMS -->
         <items-page></items-page>
     <!-- /ko -->
     <!-- ko if: currentPage() === Page.STATISTICS -->
         <statistics-page></statistics-page>
+    <!-- /ko -->
+    <!-- ko if: currentPage() === Page.WEBSITES -->
+        <websites-page></websites-page>
     <!-- /ko -->
 </div>
