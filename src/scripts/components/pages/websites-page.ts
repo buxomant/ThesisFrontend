@@ -9,15 +9,22 @@ export class ViewModel {
 
     public websiteGridEntriesPerPage: KnockoutObservable<number> = ko.observable(25);
     public websiteGridPage: KnockoutObservable<number> = ko.observable(1);
+    public websiteFilterString: KnockoutObservable<string> = ko.observable('');
+
+    public filteredWebsites = ko.pureComputed(() => {
+        return this.websiteFilterString() !== ''
+            ? _.filter(this.websites(), (website) => website.url.indexOf(this.websiteFilterString()) > -1)
+            : this.websites();
+    });
 
     public websiteGridNoOfPages = ko.pureComputed(() => {
-        return Math.floor(this.websites().length / this.websiteGridEntriesPerPage()) + 1;
+        return Math.floor(this.filteredWebsites().length / this.websiteGridEntriesPerPage()) + 1;
     });
 
     public websitesToDisplay = ko.pureComputed(() => {
         const start = (this.websiteGridPage() - 1) * this.websiteGridEntriesPerPage() + 1;
         const end = this.websiteGridPage() * this.websiteGridEntriesPerPage();
-        return _.slice(this.websites(), start, end)
+        return _.slice(this.filteredWebsites(), start, end)
     });
 }
 
