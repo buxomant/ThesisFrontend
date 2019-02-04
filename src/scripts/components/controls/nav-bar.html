@@ -7,4 +7,8 @@
         click: NavigationService.openWebsitesPage,
         css: { 'selected': NavigationService.currentPage() === Page.WEBSITES }
     ">Websites</div>
+    <div class="nav-bar__link" data-bind="
+        click: NavigationService.openGraphPage,
+        css: { 'selected': NavigationService.currentPage() === Page.GRAPH }
+    ">Graph</div>
 </div>

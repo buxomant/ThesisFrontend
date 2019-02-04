@@ -3,6 +3,7 @@ import * as ko from 'knockout';
 export enum Page {
     STATISTICS,
     WEBSITES,
+    GRAPH,
     ITEMS
 }
 
@@ -15,5 +16,9 @@ export class NavigationService {
 
     public static openWebsitesPage() {
         NavigationService.currentPage(Page.WEBSITES);
+    }
+
+    public static openGraphPage() {
+        NavigationService.currentPage(Page.GRAPH);
     }
 }
