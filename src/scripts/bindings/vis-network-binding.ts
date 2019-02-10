@@ -23,11 +23,7 @@ ko.bindingHandlers.visNetwork = {
         }
 
         // Apply the vis.js timeline component
-        const network = new vis.Network(element, data, options);
-
-        network.on("stabilizationIterationsDone", function () {
-            network.setOptions( { physics: false } );
-        });
+        new vis.Network(element, data, options);
 
         // Let knockout know that we want to handle bindings for child items manually
         return { controlsDescendantBindings: true };
