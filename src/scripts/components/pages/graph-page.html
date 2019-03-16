@@ -1,3 +1,13 @@
 <div class="graph-page">
+    <div class="graph-controls">
+        <div class="graph-node__list">
+            <!-- ko foreach: { data: nodeData, as: 'node' } -->
+                <div class="graph-node" data-bind="click: $component.toggleNodeSelected, css: { 'selected': $component.isNodeSelected(node) }">
+                    <span class="graph-node__label" data-bind="text: node.label"></span>
+                    <span class="graph-node__degree" data-bind="text: node.degree"></span>
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
     <div class="graph-visualization" data-bind="visNetwork: { data: data, options: options }"></div>
 </div>

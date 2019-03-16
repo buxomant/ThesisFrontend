@@ -11,13 +11,114 @@ export class ViewModel {
     private domesticNewsWebsites = WebsitesRepo.domesticNewsWebsites;
     private websiteToWebsites = WebsitesRepo.websiteToWebsites;
 
-    private nodes = new vis.DataSet([]);
+    private allNodes = ko.observableArray([]);
+    private selectedNodes = new vis.DataSet([]);
+
     private edges = new vis.DataSet([]);
-    public data = {
-        nodes: this.nodes,
-        edges: this.edges
+    public data: KnockoutObservable<any> = ko.observable();
+
+    public nodeData = ko.pureComputed(() => {
+        return _.orderBy(this.allNodes(), 'degree', 'desc');
+    });
+
+    public isNodeSelected = (node) => {
+        return this.selectedNodes.getIds().find((id) => id === node.id);
     };
+
+    public toggleNodeSelected = (node) => {
+        const nodeId = this.isNodeSelected(node);
+        if (nodeId) {
+            this.selectedNodes.remove(nodeId);
+        } else {
+            this.selectedNodes.add(node);
+        }
+    };
+
+    private uniqueWebsiteToWebsitesExcludingLoops = ko.pureComputed(() => {
+        const unique = _.uniqWith(this.websiteToWebsites(), _.isEqual);
+        return _.filter(unique, (wtw: any) => wtw.from !== wtw.to);
+    });
+
+    constructor() {
+        this.populate();
+        console.log(this.data());
+        this.domesticNewsWebsites.subscribe(() => this.populate());
+        this.websiteToWebsites.subscribe(() => this.populate());
+    }
+
+    private populate(): void {
+        if (this.selectedNodes.length === 0 || this.edges.length === 0) {
+            this.populateNodeSet();
+            this.populateEdgeSet();
+            this.data({
+                nodes: this.selectedNodes,
+                edges: this.edges
+            });
+        }
+    }
+
+    private populateNodeSet(): void {
+        _.forEach(this.domesticNewsWebsites(), (website: Website) => {
+            if (website.type() !== WebsiteType.INDEXING_SERVICE) {
+                const edgeSum = this.websiteInDegree(website) + this.websiteOutDegree(website);
+                const edgeSumLog = Math.log(edgeSum);
+                this.allNodes.push({
+                    id: website.websiteId,
+                    label: website.url,
+                    shape: 'dot',
+                    color: {
+                        background: ViewModel.getBackgroundColourForWebsite(website)
+                    },
+                    degree: edgeSum,
+                    size: edgeSumLog * 10 + 5,
+                    font: {
+                        size: edgeSumLog * 5 + 10
+                    }
+                })
+            }
+        });
+    }
+
+    private populateEdgeSet(): void {
+        const edges = _(this.uniqueWebsiteToWebsitesExcludingLoops())
+            .map((wtw: any) => {
+                return {
+                    from: wtw.from,
+                    to: wtw.to,
+                    value: this.edgeDegree(wtw)
+                };
+            }).sortBy('value').value();
+        this.edges.add(edges);
+    }
+
+    private static getBackgroundColourForWebsite(website: Website) {
+        switch (website.contentType()) {
+            case WebsiteContentType.NEWS:
+                return '#58D68D';
+            case WebsiteContentType.SOCIAL_MEDIA:
+                return '#F1C40F';
+            default:
+                return null;
+        }
+    }
+
+    private edgeDegree(edge: any) {
+        return _.filter(this.websiteToWebsites(), (wtw: any) => wtw.to === edge.to && wtw.from === edge.to).length;
+    }
+
+    private websiteInDegree(website: Website) {
+        return _.filter(this.uniqueWebsiteToWebsitesExcludingLoops(), (wtw: any) => wtw.to === website.websiteId).length;
+    }
+
+    private websiteOutDegree(website: Website) {
+        return _.filter(this.uniqueWebsiteToWebsitesExcludingLoops(), (wtw: any) => wtw.from === website.websiteId).length;
+    }
+
     public options = {
+        configure: {
+            enabled: true,
+            showButton: true
+        },
         edges: {
             smooth: {
                 type: 'cubicBezier',
@@ -25,12 +126,16 @@ export class ViewModel {
             }
         },
         nodes: {
+            borderWidth: 0,
             scaling: {
                 label: {
                     enabled: true,
                     min: 8,
                     max: 20
                 }
+            },
+            font: {
+                strokeWidth: 15
             }
         },
         layout: {
@@ -50,7 +155,7 @@ export class ViewModel {
                 gravitationalConstant: -50,
                 centralGravity: 0.01,
                 springConstant: 0.08,
-                springLength: 100,
+                springLength: 200,
                 damping: 0.4,
                 avoidOverlap: 0
             },
@@ -70,7 +175,7 @@ export class ViewModel {
             },
             maxVelocity: 50,
             minVelocity: 0.1,
-            solver: 'forceAtlas2Based',
+            solver: 'hierarchicalRepulsion',
             stabilization: {
                 enabled: false,
                 iterations: 1000,
@@ -82,72 +187,6 @@ export class ViewModel {
             adaptiveTimestep: true
         }
     };
-
-    private uniqueWebsiteToWebsitesExcludingLoops = ko.pureComputed(() => {
-        const unique = _.uniqWith(this.websiteToWebsites(), _.isEqual);
-        return _.filter(unique, (wtw: any) => wtw.from !== wtw.to);
-    });
-
-    constructor() {
-        this.populateNodeSet();
-        this.populateEdgeSet();
-        console.log(this.data);
-        this.domesticNewsWebsites.subscribe(() => this.populateNodeSet());
-        this.websiteToWebsites.subscribe(() => this.populateEdgeSet());
-    }
-
-    private populateNodeSet(): void {
-        _.forEach(this.domesticNewsWebsites(), (website: Website) => {
-            if (website.type() !== WebsiteType.INDEXING_SERVICE) {
-                const edgeSum = Math.log(this.websiteInDegree(website) + this.websiteOutDegree(website));
-                this.nodes.add({
-                    id: website.websiteId,
-                    label: website.url,
-                    shape: 'dot',
-                    color: {
-                        background: ViewModel.getBackgroundColourForWebsite(website)
-                    },
-                    size: edgeSum * 10 + 5,
-                    font: {
-                        size: edgeSum * 5 + 10
-                    }
-                })
-            }
-        });
-    }
-
-    private static getBackgroundColourForWebsite(website: Website) {
-        switch (website.contentType()) {
-            case WebsiteContentType.NEWS:
-                return '#58D68D';
-            case WebsiteContentType.SOCIAL_MEDIA:
-                return '#F1C40F';
-            default:
-                return null;
-        }
-    }
-
-    private populateEdgeSet(): void {
-        _.forEach(this.uniqueWebsiteToWebsitesExcludingLoops(), (wtw: any) => {
-            this.edges.add({
-                from: wtw.from,
-                to: wtw.to,
-                value: this.edgeDegree(wtw)
-            });
-        });
-    }
-
-    private edgeDegree(edge: any) {
-        return _.filter(this.websiteToWebsites(), (wtw: any) => wtw.to === edge.to && wtw.from === edge.to).length;
-    }
-
-    private websiteInDegree(website: Website) {
-        return _.filter(this.uniqueWebsiteToWebsitesExcludingLoops(), (wtw: any) => wtw.to === website.websiteId).length;
-    }
-
-    private websiteOutDegree(website: Website) {
-        return _.filter(this.uniqueWebsiteToWebsitesExcludingLoops(), (wtw: any) => wtw.from === website.websiteId).length;
-    }
 }
 
 ko.components.register('graph-page', {
