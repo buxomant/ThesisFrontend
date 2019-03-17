@@ -17,6 +17,13 @@ export class ViewModel {
     private edges = new vis.DataSet([]);
     public data: KnockoutObservable<any> = ko.observable();
 
+    constructor() {
+        this.populate();
+        console.log(this.data());
+        this.domesticNewsWebsites.subscribe(() => this.populate());
+        this.websiteToWebsites.subscribe(() => this.populate());
+    }
+
     public nodeData = ko.pureComputed(() => {
         return _.orderBy(this.allNodes(), 'degree', 'desc');
     });
@@ -34,17 +41,16 @@ export class ViewModel {
         }
     };
 
+    public shouldHideGraphConfig = ko.observable(true);
+
+    public toggleGraphConfig() {
+        this.shouldHideGraphConfig(!this.shouldHideGraphConfig());
+    }
+
     private uniqueWebsiteToWebsitesExcludingLoops = ko.pureComputed(() => {
         const unique = _.uniqWith(this.websiteToWebsites(), _.isEqual);
         return _.filter(unique, (wtw: any) => wtw.from !== wtw.to);
     });
-
-    constructor() {
-        this.populate();
-        console.log(this.data());
-        this.domesticNewsWebsites.subscribe(() => this.populate());
-        this.websiteToWebsites.subscribe(() => this.populate());
-    }
 
     private populate(): void {
         if (this.selectedNodes.length === 0 || this.edges.length === 0) {

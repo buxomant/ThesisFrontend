@@ -1,25 +1,45 @@
 .graph-page {
   display: flex;
+  width: 100vw;
   flex-direction: row;
-  padding-top: 20px;
+}
+
+.graph-config {
+  flex: 1;
 }
 
 .graph-visualization {
   display: flex;
-  height: 850px;
-  width: 1400px;
+  flex: 10;
+  height: 94vh;
   border: 2px solid @light-grey;
   margin-left: -2px;
+  &.hidden-config {
+    .vis-configuration-wrapper {
+      display: none;
+    }
+  }
+}
+
+.graph-config__toggle {
+  position: absolute;
+  height: 16px;
+  top: 8px;
+  right: 8px;
+  border: 1px solid @light-grey;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .vis-configuration-wrapper {
   border-left: 2px solid @light-grey;
+  width: 820px;
   overflow-y: scroll;
 }
 
 .graph-node__list {
-  height: 850px;
-  width: 250px;
+  height: 94vh;
+  flex: 1;
   overflow-y: scroll;
   border: 2px solid @light-grey;
 }

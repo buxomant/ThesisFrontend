@@ -1,5 +1,6 @@
 <div class="graph-page">
-    <div class="graph-controls">
+    <div class="graph-config__toggle" data-bind="click: toggleGraphConfig">Graph config</div>
+    <div class="graph-config">
         <div class="graph-node__list">
             <!-- ko foreach: { data: nodeData, as: 'node' } -->
                 <div class="graph-node" data-bind="click: $component.toggleNodeSelected, css: { 'selected': $component.isNodeSelected(node) }">
@@ -9,5 +10,5 @@
             <!-- /ko -->
         </div>
     </div>
-    <div class="graph-visualization" data-bind="visNetwork: { data: data, options: options }"></div>
+    <div class="graph-visualization" data-bind="visNetwork: { data: data, options: options }, css: { 'hidden-config': shouldHideGraphConfig }"></div>
 </div>
