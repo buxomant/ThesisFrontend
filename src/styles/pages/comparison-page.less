@@ -1,0 +1,38 @@
+.comparison-page {
+  display: flex;
+  width: 100vw;
+}
+
+.url-list, .url-pair-list {
+  overflow-y: scroll;
+  height: 94vh;
+  border: 2px solid @light-grey;
+  margin-right: -2px;
+}
+
+.url-list {
+  flex: 1;
+}
+
+.url-pair-list {
+  flex: 3;
+}
+
+.url-pair {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-url {
+  padding: 5px;
+  flex: 1;
+}
+
+.website-url {
+  padding: 5px;
+  cursor: pointer;
+  &.selected {
+    color: white;
+    background: black;
+  }
+}

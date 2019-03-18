@@ -4,6 +4,7 @@ export enum Page {
     STATISTICS,
     WEBSITES,
     GRAPH,
+    COMPARISON,
     ITEMS
 }
 
@@ -20,5 +21,9 @@ export class NavigationService {
 
     public static openGraphPage() {
         NavigationService.currentPage(Page.GRAPH);
+    }
+
+    public static openComparisonPage() {
+        NavigationService.currentPage(Page.COMPARISON);
     }
 }

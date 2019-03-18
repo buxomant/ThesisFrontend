@@ -11,4 +11,8 @@
         click: NavigationService.openGraphPage,
         css: { 'selected': NavigationService.currentPage() === Page.GRAPH }
     ">Graph</div>
+    <div class="nav-bar__link" data-bind="
+        click: NavigationService.openComparisonPage,
+        css: { 'selected': NavigationService.currentPage() === Page.COMPARISON }
+    ">Comparison</div>
 </div>
