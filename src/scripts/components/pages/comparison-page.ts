@@ -6,6 +6,9 @@ const template = require('scripts/components/pages/comparison-page.html');
 
 export class ViewModel {
     private pageSimilarities = SimilarityRepo.pageSimilarities;
+    public isLoading = SimilarityRepo.isLoading;
+    public isError = SimilarityRepo.isError;
+    public errorMessage = SimilarityRepo.errorMessage;
 
     public selectedFirstWebsiteUrl = ko.observable('');
     public selectedSecondWebsiteUrl = ko.observable('');

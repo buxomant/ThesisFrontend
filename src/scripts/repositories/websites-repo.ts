@@ -14,24 +14,34 @@ export class WebsitesRepo {
     public static domesticNewsWebsites: KnockoutObservableArray<Website> = ko.observableArray();
     public static websiteToWebsites: KnockoutObservableArray<WebsiteToWebsiteResponse> = ko.observableArray();
 
+    public static isLoading = ko.observable(false);
+    public static isError = ko.observable(false);
+    public static errorMessage = ko.observable('');
+
     public static init() {
+        this.isLoading(true);
         WebsitesRepo.fetchWebsites()
             .then((websitesResponse: WebsitesResponse) => {
                 const websites: Website[] = _.map(websitesResponse.websites, (website) => Website.fromResponse(website));
                 this.websites(websites);
             })
-            .catch((error) => console.log(error)); // qq implement error handling
+            .catch((error) => {
+                console.log(error);
+                this.isError(true);
+                this.errorMessage(JSON.stringify(error));
+            })
+            .finally(() => this.isLoading(false));
         WebsitesRepo.fetchWebsitesByWebsiteTypeAndContentType('DOMESTIC', 'NEWS')
             .then((websitesResponse: WebsitesResponse) => {
                 const websites: Website[] = _.map(websitesResponse.websites, (website) => Website.fromResponse(website));
                 this.domesticNewsWebsites(websites);
             })
-            .catch((error) => console.log(error)); // qq implement error handling
+            .catch((error) => console.log(error));
         WebsitesRepo.fetchWebsiteToWebsiteLinks()
             .then((websiteToWebsitesResponse: WebsiteToWebsitesResponse) => {
                 this.websiteToWebsites(websiteToWebsitesResponse.websiteToWebsites);
             })
-            .catch((error) => console.log(error)); // qq implement error handling
+            .catch((error) => console.log(error));
     }
 
     public static fetchWebsites(): Promise<WebsitesResponse> {

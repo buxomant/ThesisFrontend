@@ -8,12 +8,22 @@ export class SimilarityRepo {
 
     public static pageSimilarities: KnockoutObservableArray<PageSimilarityResponse> = ko.observableArray();
 
+    public static isLoading = ko.observable(false);
+    public static isError = ko.observable(false);
+    public static errorMessage = ko.observable('');
+
     public static init() {
+        this.isLoading(true);
         SimilarityRepo.fetchCrawlerStatistics()
             .then((pageSimilaritiesResponse) => {
                 this.pageSimilarities(pageSimilaritiesResponse.pageSimilarities);
             })
-            .catch((error) => console.log(error)); // qq implement error handling
+            .catch((error) => {
+                this.isError(true);
+                this.errorMessage(JSON.stringify(error));
+                console.log(error);
+            })
+            .finally(() => this.isLoading(false));
     }
 
     public static fetchCrawlerStatistics(): Promise<PageSimilaritiesResponse> {

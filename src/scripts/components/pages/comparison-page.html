@@ -1,28 +1,38 @@
-<div class="comparison-page">
-    <div class="url-list">
-        <!-- ko foreach: { data: uniqueFirstWebsiteUrls, as: 'url' } -->
-            <div class="website-url" data-bind="
-                text: url,
-                click: $component.selectFirstWebsite,
-                css: { 'selected': $component.isSelectedFirstWebsite(url) }">
-            </div>
-        <!-- /ko -->
+<!-- ko if: isLoading()-->
+    <spinner-page></spinner-page>
+<!-- /ko -->
+
+<!-- ko if: isError() -->
+    <error-page params="errorMessage: errorMessage"></error-page>
+<!-- /ko -->
+
+<!-- ko ifnot: isLoading() || isError() -->
+    <div class="comparison-page">
+        <div class="url-list">
+            <!-- ko foreach: { data: uniqueFirstWebsiteUrls, as: 'url' } -->
+                <div class="website-url" data-bind="
+                    text: url,
+                    click: $component.selectFirstWebsite,
+                    css: { 'selected': $component.isSelectedFirstWebsite(url) }">
+                </div>
+            <!-- /ko -->
+        </div>
+        <div class="url-list">
+            <!-- ko foreach: { data: uniqueSecondWebsiteUrls, as: 'url' } -->
+                <div class="website-url" data-bind="
+                    text: url,
+                    click: $component.selectSecondWebsite,
+                    css: { 'selected': $component.isSelectedSecondWebsite(url) }">
+                </div>
+            <!-- /ko -->
+        </div>
+        <div class="url-pair-list">
+            <!-- ko foreach: { data: filteredPageSimilarities, as: 'pageSimilarity' } -->
+                <div class="url-pair">
+                    <a class="page-url" data-bind="text: pageSimilarity.firstPageUrl, attr: { href: '//' + pageSimilarity.firstPageUrl}"></a>
+                    <a class="page-url" data-bind="text: pageSimilarity.secondPageUrl, attr: { href: '//' + pageSimilarity.secondPageUrl}"></a>
+                </div>
+            <!-- /ko -->
+        </div>
     </div>
-    <div class="url-list">
-        <!-- ko foreach: { data: uniqueSecondWebsiteUrls, as: 'url' } -->
-            <div class="website-url" data-bind="
-                text: url,
-                click: $component.selectSecondWebsite,
-                css: { 'selected': $component.isSelectedSecondWebsite(url) }">
-            </div>
-        <!-- /ko -->
-    </div>
-    <div class="url-pair-list">
-        <!-- ko foreach: { data: filteredPageSimilarities, as: 'pageSimilarity' } -->
-            <div class="url-pair">
-                <a class="page-url" data-bind="text: pageSimilarity.firstPageUrl, attr: { href: '//' + pageSimilarity.firstPageUrl}"></a>
-                <a class="page-url" data-bind="text: pageSimilarity.secondPageUrl, attr: { href: '//' + pageSimilarity.secondPageUrl}"></a>
-            </div>
-        <!-- /ko -->
-    </div>
-</div>
+<!-- /ko -->

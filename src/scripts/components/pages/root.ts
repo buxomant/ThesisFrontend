@@ -5,6 +5,8 @@ import 'scripts/components/pages/statistics-page'
 import 'scripts/components/pages/websites-page'
 import 'scripts/components/pages/graph-page'
 import 'scripts/components/pages/comparison-page'
+import 'scripts/components/pages/spinner-page'
+import 'scripts/components/pages/error-page'
 import 'scripts/components/controls/nav-bar'
 
 const template = require('scripts/components/pages/root.html');

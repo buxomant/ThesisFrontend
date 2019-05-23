@@ -1,0 +1,20 @@
+@import "../modules/_animations";
+
+.spinner-page--container{
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: inherit;
+
+  .spinner-page--message {
+    padding-bottom: 50px;
+  }
+
+  .spinner-page--spinner {
+    .loader--medium--black;
+  }
+}

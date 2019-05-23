@@ -6,6 +6,9 @@ const template = require('scripts/components/pages/websites-page.html');
 
 export class ViewModel {
     public websites = WebsitesRepo.websites;
+    public isLoading = WebsitesRepo.isLoading;
+    public isError = WebsitesRepo.isError;
+    public errorMessage = WebsitesRepo.errorMessage;
 
     public websiteGridEntriesPerPage: KnockoutObservable<number> = ko.observable(25);
     public websiteGridPage: KnockoutObservable<number> = ko.observable(1);
