@@ -4,8 +4,7 @@ export enum Page {
     STATISTICS,
     WEBSITES,
     GRAPH,
-    COMPARISON,
-    ITEMS
+    COMPARISON
 }
 
 export class NavigationService {
