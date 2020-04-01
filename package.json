@@ -16,7 +16,7 @@
   "homepage": "https://github.com/buxomant/ThesisFrontend#readme",
   "dependencies": {
     "jquery": "^3.3.1",
-    "knockout": "^3.4.2",
+    "knockout": "^3.5.0",
     "moment": "^2.22.2",
     "q": "^1.5.1",
     "vis": "^4.21.0"
